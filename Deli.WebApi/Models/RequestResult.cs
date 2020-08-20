@@ -1,4 +1,8 @@
 /*add customized code between this region*/
+print("aaaaa")
+a=0 
+b=1
+c=a*b
 /*add customized code between this region*/
 namespace Deli.WebApi.Models
 {
