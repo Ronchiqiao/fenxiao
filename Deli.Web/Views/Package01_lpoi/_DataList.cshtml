@@ -1,0 +1,52 @@
+@using MetaShare.Common.Core.Presentation
+@using Deli.Entities
+@using Deli.Web.HtmlExtensions
+@using Deli.Entities.Package01
+@using Deli.Web.Models
+<!--add customized code between this region-->
+<!--add customized code between this region-->
+
+@model IndexViewModel<lpoi>
+        <table class="table table-striped table-bordered table-hover">
+            <thead>
+            <tr>
+		<th class="text-left">Name</th>
+		<th class="text-left">klj</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            @if (Model.TargetPager != null && Model.TargetPager.Datas != null)
+            {
+            foreach (Deli.Entities.Package01.lpoi lpoiItem in Model.TargetPager.Datas)
+                        {
+                <tr>
+			<td  class="text-left">
+				@Html.DisplayFor(modelItem => lpoiItem.Name)
+			</td>
+			<td class="text-left">
+				@Html.DisplayFor(modelItem => lpoiItem.klj)
+			</td>
+                    <td>
+                        @Html.ActionLink(" ", "Details", new { id = lpoiItem.Id, Controller = "lpoi", area = "Package01"}, new {@class="m_details", title="Details" })
+                        @Html.ActionLink(" ", "Edit", new { id = lpoiItem.Id, Controller = "lpoi", area = "Package01"}, new {@class="m_edit", title="Edit" })
+                        @Html.ActionLink(" ", "#", "#", new {href = "javascript:void(0);",@class="m_delete", title="Delete", onclick = " javascript:metaShare.basic.prototype.deleteTableColumn(this,'" + lpoiItem.Id + "','" + Url.Action("Delete",new {Controller = "lpoi", area = "Package01"}) + "'); return false; "})
+                    </td>
+                </tr>
+            }
+            }
+<!--add customized code between this region-->
+<!--add customized code between this region-->
+            </tbody>
+        </table>
+
+
+        <div class="UserPagerDiv text-center">
+    @{
+        object conditions = new
+        {
+            Name = Model.SearchModel != null ? Model.SearchModel.Name : "",
+        };
+    }
+        @Ajax.AjaxRenderPager(Model.TargetPager, "Search", "lpoi","lpoi_DataList", conditions)
+        </div>
